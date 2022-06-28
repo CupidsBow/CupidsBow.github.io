@@ -180,6 +180,9 @@
     <link rel="prefetch" href="//cdn.jsdelivr.net/npm/mathjax@3.0.5/es5/tex-svg.js" as="script">
   
   
+    
+    <link rel="prefetch" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js" as="script">
+  
   
 <meta name="generator" content="Hexo 5.4.2"></head>
 
@@ -298,7 +301,7 @@
     
     
       <span class="dot"></span>
-      <span>0 字</span>
+      <span>10 字</span>
     
   </div>
   
@@ -306,7 +309,8 @@
   <div 
     id="section" 
     class="post-content">
-    
+    <p>大三 ACMer，车万人。<br>联系 QQ：1143957699。</p>
+
   </div>
   <div>
     
@@ -338,6 +342,40 @@
   
   
 </div>
+
+  <div 
+    class="card card-content comment-card" 
+    style="margin-top: 16px;">
+    <div class="comment-card-title">评论</div>
+    
+  <div id="gitalk-container"></div>
+  
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+
+  
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+  
+<script src="/js/lib/md5.min.js"></script>
+
+  <script>
+    var gitalk = new Gitalk({
+      clientID: 'de01bfe07a9e9481d66a',
+      clientSecret: 'c378dabbfc75b7b763d66dba7d88fd57bccdbc25',
+      repo: 'Blog comments',
+      owner: 'CupidsBow',
+      admin: "CupidsBow",
+      id: md5(location.href),
+      distractionFreeMode: false,
+      language: 'navigator.language || navigator.userLanguage',
+      labels: ["Gitalk"],
+      perPage: 10
+    })
+
+    gitalk.render('gitalk-container')
+  </script>
+
+  </div>
 
 <div 
   class="card card-content toc-card" 
@@ -383,6 +421,22 @@
     <span>标签</span>
   </a>
 </div>
+
+  <div class="author-card-society">
+    
+      <div class="author-card-society-icon">
+        <a target="_blank" rel="noopener" href="https://github.com/CupidsBow">
+          <i class="iconfont icon-github society-icon"></i>
+        </a>
+      </div>
+    
+      <div class="author-card-society-icon">
+        <a target="_blank" rel="noopener" href="https://space.bilibili.com/85811303">
+          <i class="iconfont icon-bilibili society-icon"></i>
+        </a>
+      </div>
+    
+  </div>
 
               </div>
                <div class="sticky-tablet">
