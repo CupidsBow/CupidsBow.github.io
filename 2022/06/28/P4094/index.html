@@ -390,7 +390,7 @@
 <span id="more"></span>
 
 <h3 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h3><p>已知小写字符串 $s$ 。<br>$m$ 次询问，每次询问串 $s$ 中子串 $s[c…d]$ 与子串 $s[a…b]$ 中每个子串的 $lcp$ 长度的最大值。<br>其中 $1 \leq |s|, m \leq 10^5$ 。</p>
-<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>由于字符串 $s$ 是给定的，可以 $O(nlogn)$ 地预处理出 $s$ 的后缀数组，从而可以 $O(1)$ 地求出某两个后缀的 $lcp$ 长度。<br>很容易发现答案具有二分性，可以二分出 $lcp$ 的长度从而转换为存在性问题。<br>假设当前二分的结果是 $mid$ ，可以发现 只有起点位于 $[a…b-mid+1]$ 内的子串与 $s[c…d]$ 的 $lcp$ 长度可能大于等于 $mid$ ，所以问题即转换为求 $[a…b-mid+1]$ 内的后缀与后缀 $c$ 的 $lcp$ 长度。<br>因为是多组询问，不可能每一次都将 $c$ 与 $[a…b-mid+1]$ 中的每一个后缀比较一次。考虑后缀数组的性质， $rk_a, rk_{a+1}, …rk_{b-mid+1}$ 与 $rk_c$ 放置在数轴上是一系列散点，由 $lcp(rk_i,rk_j) == min(height_k) (rk_i \leq k \leq rk_j)$ 可以发现只需要计算 $rk_c$ 左右最近的两个位置与它的 $lcp$ 即可。具体实现时，可以对串 $s$ 的下标可持久化建树，每次加入 $rk_i$ ，单次询问需要查询 $x$ 左右的第一个 $1$ 的位置，查询一次复杂度为 $O(logn)$ 。所以处理一次询问的复杂度为 $O(log^2n)$ 。<br>预处理 $+ n$ 次询问的总复杂度为 $O(n \cdot log^2n)$ 。</p>
+<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>由于字符串 $s$ 是给定的，可以 $O(nlogn)$ 地预处理出 $s$ 的后缀数组，从而可以 $O(1)$ 地求出某两个后缀的 $lcp$ 长度。<br>很容易发现答案具有二分性，可以二分出 $lcp$ 的长度从而转换为存在性问题。<br>假设当前二分的结果是 $mid$ ，可以发现 只有起点位于 $[a…b-mid+1]$ 内的子串与 $s[c…d]$ 的 $lcp$ 长度可能大于等于 $mid$ ，所以问题即转换为求 $[a…b-mid+1]$ 内的后缀与后缀 $c$ 的 $lcp$ 长度。<br>因为是多组询问，不可能每一次都将 $c$ 与 $[a…b-mid+1]$ 中的每一个后缀比较一次。考虑后缀数组的性质， $rk_a, rk_{a+1}, …rk_{b-mid+1}$ 与 $rk_c$ 放置在数轴上是一系列散点，由 $lcp(rk_i,rk_j) == min(height_k) (rk_i \leq k \leq rk_j)$ 可以发现只需要计算 $rk_c$ 左右最近的两个位置与它的 $lcp$ 即可。具体实现时，可以对串 $s$ 的下标可持久化建树，每次加入 $rk_i$ ，单次询问需要查询 $x$ 左右的第一个 $1$ 的位置，查询一次复杂度为 $O(logn)$ 。所以处理一次询问的复杂度为 $O(log^2n)$ 。<br>预处理加 $n$ 次询问的总复杂度为 $O(n \cdot log^2n)$ 。</p>
 <h3 id="代码"><a href="#代码" class="headerlink" title="代码:"></a>代码:</h3><p>代码实现有点<del>极</del>长，不过都是很常规的操作，重点在熟练度。</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span><span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -703,6 +703,12 @@
   <div class="tags-list">
     
       <a 
+        href="/tags/%E4%BA%8C%E5%88%86/" 
+        title="二分">
+        <div class="tags-list-item">二分</div>
+      </a>
+    
+      <a 
         href="/tags/%E5%90%8E%E7%BC%80%E6%95%B0%E7%BB%84/" 
         title="后缀数组">
         <div class="tags-list-item">后缀数组</div>
@@ -712,12 +718,6 @@
         href="/tags/%E4%B8%BB%E5%B8%AD%E6%A0%91/" 
         title="主席树">
         <div class="tags-list-item">主席树</div>
-      </a>
-    
-      <a 
-        href="/tags/%E4%BA%8C%E5%88%86/" 
-        title="二分">
-        <div class="tags-list-item">二分</div>
       </a>
     
   </div>
