@@ -28,7 +28,7 @@
     
       <meta 
         property="og:url" 
-        content="https://cupidsbow.github.io/2022/06/28/hello-world/index.html">
+        content="https://cupidsbow.github.io/2022/06/28/P4094/index.html">
     
     
       <meta 
@@ -49,7 +49,7 @@
         content="2022-06-28">
       <meta 
         property="og:article:modified_time" 
-        content="2022-06-29">
+        content="2022-06-30">
       <meta 
         property="og:article:author" 
         content="Cupids_Bow">
@@ -389,9 +389,10 @@
     <p>后缀数组 + 主席树上二分</p>
 <span id="more"></span>
 
-<h3 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h3><p>已知字符串 $s$ 。<br>$m$ 次询问，每次询问串 $s$ 中子串 $s[c…d]$ 与子串 $s[a…b]$ 中每个子串的 $lcp$ 长度的最大值。</p>
-<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>由于字符串 $s$ 是给定的，可以 $O(nlogn)$ 地预处理出 $s$ 的后缀数组，从而可以 $O(1)$ 地求出某两个后缀的 $lcp$ 长度。<br>很容易发现答案具有二分性，可以二分出 $lcp$ 的长度从而转换为存在性问题。<br>假设当前二分的结果是 $mid$ ，可以发现 只有起点位于 $[a…b-mid+1]$ 内的子串与 $s[c…d]$ 的 $lcp$ 长度可能 $\geq mid$ ，所以问题即转换为求 $[a…b-mid+1]$ 内的后缀与后缀 $c$ 的 $lcp$ 长度。<br>因为是多组询问，不可能每一次都将 $c$ 与 $[a…b-mid+1]$ 中的每一个后缀比较一次。考虑后缀数组的性质， $rk_a, rk_{a+1}, …rk_{b-mid+1}$ 与 $rk_c$ 放置在数轴上是一系列散点，由 $lcp(rk_i,rk_j) == min(height_k) (rk_i \leq k \leq rk_j)$ 可以发现只需要计算 $rk_c$ 左右最近的两个位置与它的 $lcp$ 即可。具体实现时，可以对串 $s$ 的下标可持久化建树，每次加入 $rk_i$ ，单次询问需要查询 $x$ 左右的第一个 $1$ 的位置，查询一次复杂度为 $O(logn)$ 。所以处理一次询问的复杂度为 $O(log^2n)$ 。<br>预处理 $+ n$ 次询问的总复杂度为 $O(n \cdot log^2n)$ 。</p>
-<h3 id="代码如下"><a href="#代码如下" class="headerlink" title="代码如下:"></a>代码如下:</h3><pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span><span class="token string">&lt;bits/stdc++.h></span></span>
+<h3 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h3><p>已知小写字符串 $s$ 。<br>$m$ 次询问，每次询问串 $s$ 中子串 $s[c…d]$ 与子串 $s[a…b]$ 中每个子串的 $lcp$ 长度的最大值。<br>其中 $1 \leq |s|, m \leq 10^5$ 。</p>
+<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>由于字符串 $s$ 是给定的，可以 $O(nlogn)$ 地预处理出 $s$ 的后缀数组，从而可以 $O(1)$ 地求出某两个后缀的 $lcp$ 长度。<br>很容易发现答案具有二分性，可以二分出 $lcp$ 的长度从而转换为存在性问题。<br>假设当前二分的结果是 $mid$ ，可以发现 只有起点位于 $[a…b-mid+1]$ 内的子串与 $s[c…d]$ 的 $lcp$ 长度可能大于等于 $mid$ ，所以问题即转换为求 $[a…b-mid+1]$ 内的后缀与后缀 $c$ 的 $lcp$ 长度。<br>因为是多组询问，不可能每一次都将 $c$ 与 $[a…b-mid+1]$ 中的每一个后缀比较一次。考虑后缀数组的性质， $rk_a, rk_{a+1}, …rk_{b-mid+1}$ 与 $rk_c$ 放置在数轴上是一系列散点，由 $lcp(rk_i,rk_j) == min(height_k) (rk_i \leq k \leq rk_j)$ 可以发现只需要计算 $rk_c$ 左右最近的两个位置与它的 $lcp$ 即可。具体实现时，可以对串 $s$ 的下标可持久化建树，每次加入 $rk_i$ ，单次询问需要查询 $x$ 左右的第一个 $1$ 的位置，查询一次复杂度为 $O(logn)$ 。所以处理一次询问的复杂度为 $O(log^2n)$ 。<br>预处理 $+ n$ 次询问的总复杂度为 $O(n \cdot log^2n)$ 。</p>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码:"></a>代码:</h3><p>代码实现有点<del>极</del>长，不过都是很常规的操作，重点在熟练度。</p>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span><span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
 
 <span class="token keyword">using</span> ll<span class="token operator">=</span><span class="token keyword">long</span> <span class="token keyword">long</span><span class="token punctuation">;</span>
@@ -564,8 +565,8 @@
           <span style="font-weight: bold;">文章链接：</span><a 
             target="_blank" 
             rel="nofollow noopener noreferrer" 
-            href="https://cupidsbow.github.io/2022/06/28/hello-world/">
-            https://cupidsbow.github.io/2022/06/28/hello-world/
+            href="https://cupidsbow.github.io/2022/06/28/P4094/">
+            https://cupidsbow.github.io/2022/06/28/P4094/
           </a>
         </p>
         <p><span style="font-weight: bold;">版权声明：</span>本博客所有文章除特别声明外，均采用<a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">CC BY-NC-SA 4.0 协议</a>。转载请注明出处！</p>
@@ -574,6 +575,20 @@
   </div>
 </article>
 <div class="nav">
+  
+    <div class="nav-item-prev">
+      <a 
+        href="/2022/06/29/P6095/" 
+        class="nav-link">
+        <i class="iconfont icon-left nav-prev-icon"></i>
+        <div>
+          <div class="nav-label">上一篇</div>
+          
+            <div class="nav-title">题解 洛谷P6095 [JSOI2015]串分割 </div>
+          
+        </div>
+      </a>
+    </div>
   
   
 </div>
@@ -587,7 +602,7 @@
     style="padding-right: 2px;">
   </i>目录
 </div>
-<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E6%84%8F"><span class="toc-text">题意</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF"><span class="toc-text">思路</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E5%A6%82%E4%B8%8B"><span class="toc-text">代码如下:</span></a></li></ol>
+<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E6%84%8F"><span class="toc-text">题意</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF"><span class="toc-text">思路</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81"><span class="toc-text">代码:</span></a></li></ol>
 </div></main>
             <aside class="left-column">
               
@@ -606,7 +621,7 @@
   <a 
     class="author-posts-count" 
     href="/archives">
-    <span>1</span>
+    <span>2</span>
     <span>文章</span>
   </a>
   <a 
@@ -651,7 +666,7 @@
     style="padding-right: 2px;">
   </i>目录
 </div>
-<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E6%84%8F"><span class="toc-text">题意</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF"><span class="toc-text">思路</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E5%A6%82%E4%B8%8B"><span class="toc-text">代码如下:</span></a></li></ol>
+<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E6%84%8F"><span class="toc-text">题意</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF"><span class="toc-text">思路</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81"><span class="toc-text">代码:</span></a></li></ol>
       </div>
     </article>
   
@@ -669,7 +684,7 @@
       <a href="/categories/%E9%A2%98%E8%A7%A3/">
         <div class="categories-list-item">
           题解
-          <span class="categories-list-item-badge">1</span>
+          <span class="categories-list-item-badge">2</span>
         </div>
       </a>
     
@@ -694,15 +709,15 @@
       </a>
     
       <a 
-        href="/tags/%E4%B8%BB%E5%B8%AD%E6%A0%91/" 
-        title="主席树">
-        <div class="tags-list-item">主席树</div>
-      </a>
-    
-      <a 
         href="/tags/%E5%90%8E%E7%BC%80%E6%95%B0%E7%BB%84/" 
         title="后缀数组">
         <div class="tags-list-item">后缀数组</div>
+      </a>
+    
+      <a 
+        href="/tags/%E4%B8%BB%E5%B8%AD%E6%A0%91/" 
+        title="主席树">
+        <div class="tags-list-item">主席树</div>
       </a>
     
   </div>
@@ -723,7 +738,7 @@
     style="padding-right: 2px;">
   </i>目录
 </div>
-<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E6%84%8F"><span class="toc-text">题意</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF"><span class="toc-text">思路</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E5%A6%82%E4%B8%8B"><span class="toc-text">代码如下:</span></a></li></ol>
+<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E6%84%8F"><span class="toc-text">题意</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF"><span class="toc-text">思路</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81"><span class="toc-text">代码:</span></a></li></ol>
     </article>
   
   
@@ -738,8 +753,13 @@
   <div class="recent-posts-list">
     
       <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2022-06-29</div>
+        <a href="/2022/06/29/P6095/"><div class="recent-posts-item-content">题解 洛谷P6095 [JSOI2015]串分割</div></a>
+      </div>
+    
+      <div class="recent-posts-item">
         <div class="recent-posts-item-title">2022-06-28</div>
-        <a href="/2022/06/28/hello-world/"><div class="recent-posts-item-content">题解 洛谷P4094 [HEOI2016/TJOI2016]字符串</div></a>
+        <a href="/2022/06/28/P4094/"><div class="recent-posts-item-content">题解 洛谷P4094 [HEOI2016/TJOI2016]字符串</div></a>
       </div>
     
   </div>
