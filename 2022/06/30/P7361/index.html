@@ -49,7 +49,7 @@
         content="2022-06-30">
       <meta 
         property="og:article:modified_time" 
-        content="2022-07-02">
+        content="2022-07-03">
       <meta 
         property="og:article:author" 
         content="Cupids_Bow">
@@ -341,7 +341,7 @@
     
     
       <span class="dot"></span>
-      <span>1.2k 字</span>
+      <span>1.8k 字</span>
     
   </div>
   
@@ -390,7 +390,7 @@
 <span id="more"></span>
 
 <h3 id="题意："><a href="#题意：" class="headerlink" title="题意："></a>题意：</h3><p>给定长为 $n$ 的小写字符串 $s$ ， $q$ 次询问，每次询问子串 $s[l,r]$ 中出现次数大于等于 $2$ 的最长子串长度。<br>其中 $1 \leq n \leq 5 \cdot 10^4, 1 \leq q \leq 10^5$ 。</p>
-<h3 id="思路："><a href="#思路：" class="headerlink" title="思路："></a>思路：</h3><p>$…$</p>
+<h3 id="思路："><a href="#思路：" class="headerlink" title="思路："></a>思路：</h3><p>容易发现答案具有二分性，对于每次询问，考虑二分满足条件的最长子串的长度 $mid$ ，单次询问即转换为判断区间 $[l,r-mid+1]$ 内的后缀两两之间的 $lcp$ 的最大值是否大于等于 $mid$ 。<br>但是直接判断一遍是 $O(n)$ 的，显然不合理，这里的判断需要用到另一题 <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2178">P2178 [NOI2015] 品酒大会</a> 的技巧：考虑求出串 $s$ 的后缀数组，将每个后缀 $i (i \geq 2)$ 按照 $height_i$ 的值降序排序，两个后缀 $x, y$ 的 $lcp$ 大于等于 $mid$ 当且仅当将所有 $height_i \geq mid$ 的后缀 $i$ 与后缀 $i-1$ 合并之后， $x, y$ 在同一连通块中。<br>那么二分出长度 $mid$ 后只需要判断将所有 $height_i \geq mid$ 的后缀 $i$ 与后缀 $i-1$ 合并之后，区间 $[l,r-mid+1]$ 内是否存在两点属于同一个连通块。若在每个节点标记上离它最近的下一个与它在同一连通块内的点的位置 $nex$ ，判断过程就变成了查询区间 $[l,r]$ 的最小值是否小于等于 $r$ ，那么这一过程的实现很容易想到用线段树维护。<br>由于将 $height_i$ 排序后每次二分查询的相当于是 $height$ 数组的一段前缀的信息，可以考虑将排序后的 $height$ 数组可持久化。具体实现为：用第 $i$ 棵树维护当合并了所有 $height_i \geq i$ 的相邻后缀后，每个点的 $nex$ 值与区间 $min$ 。查询的时候直接查询第 $mid$ 棵树的信息即可。考虑用启发式合并的并查集维护每个后缀所属的连通块，那么每一次合并会修改若干个点的 $nex$ 值，由于是启发式合并，总共的修改次数不会超过 $n \cdot logn$，因此建树的总复杂度是 $O(n \cdot log^2n)$ ，具体用一个 $set$ 维护并查集，可以看代码实现。<br>每次查询时二分加查询的复杂度是 $O(log^2n)$ ，因此总复杂度为 $O(n \cdot log^2n)$ 。</p>
 <h3 id="代码："><a href="#代码：" class="headerlink" title="代码："></a>代码：</h3><p>注意主席树上修改叶子时把该叶子的操作一次性做完。</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span><span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
