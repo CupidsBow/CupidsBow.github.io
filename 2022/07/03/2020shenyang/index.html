@@ -49,7 +49,7 @@
         content="2022-07-03">
       <meta 
         property="og:article:modified_time" 
-        content="2022-07-03">
+        content="2022-07-04">
       <meta 
         property="og:article:author" 
         content="Cupids_Bow">
@@ -333,7 +333,7 @@
     
     
       <span class="dot"></span>
-      <span>841 字</span>
+      <span>1.5k 字</span>
     
   </div>
   
@@ -363,13 +363,68 @@
     <p>2020 沈阳补题记录与部分题目题解（待补…）</p>
 <span id="more"></span>
 
-<h2 id="J-Descent-of-Dragons"><a href="#J-Descent-of-Dragons" class="headerlink" title="J. Descent of Dragons"></a>J. Descent of Dragons</h2><h3 id="tag"><a href="#tag" class="headerlink" title="tag"></a>tag</h3><ul>
+<p>说起来 20 沈阳可能是唯一一场（第一场）线下打的 xcpc 了，首先祝贺 TS1队四题拿银证明自己。</p>
+<center>
+
+<p><img  srcset="https://cdn.luogu.com.cn/upload/image_hosting/iicym2v8.png" data-src="https://cdn.luogu.com.cn/upload/image_hosting/1uoix4yk.png" class="lozad post-image"src="https://cdn.luogu.com.cn/upload/image_hosting/1uoix4yk.png"></p>
+</center>
+虽然现在才开始补看去年的题确实不止有些离谱（笑）。
+
+<h2 id="H-The-Boomsday-Project"><a href="#H-The-Boomsday-Project" class="headerlink" title="H. The Boomsday Project"></a>H. The Boomsday Project</h2><h3 id="tag"><a href="#tag" class="headerlink" title="tag"></a>tag</h3><ul>
+<li>DP</li>
+<li>双指针</li>
+</ul>
+<h3 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h3><p>给出某人在 $m$ 天内的租车情况 $\rightarrow$ 第 $p_i$ 天租了 $q_i$ 辆车。<br>给出某人可以的租车方案 $\rightarrow$ 花费 $r$ 块单独租一辆车或者花费一定价格买一张优惠卡。其中第 $i$ 张优惠卡需要花费 $c_i$ 块，使用可以免去接下来 $d_i$ 天里最多 $k_i$ 辆车的花费，总共有 $n$ 种不同的优惠卡，同一种卡可以重复购买。<br>其中 $1 \leq n \leq 5 \cdot 10^2, 1 \leq m \leq 10^5, 1 \leq r \leq 10^9, 1 \leq d_i, k_i, c_i \leq 10^9, 0 \leq p_i \leq 10^9, 0 \leq q_i \leq 3 \cdot 10^5, \sum_{i=1}^{m} q_i \leq 3 \cdot 10^5$ 。</p>
+<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>首先观察到总共的租车数量比较小 $\rightarrow \sum_{i=1}^{m} q_i \leq 3 \cdot 10^5$ ，可以考虑将所有租的车按时间顺序排列出来 DP 。<br>具体实现为：<br>用 $a_i$ 表示排序后第 $i$ 辆车被租的时间（单位为天）， $dp_i$ 表示排序后租前 $i$ 辆车的最小花费，那么转移有两种情况：</p>
+<ul>
+<li>不用优惠卡 $\rightarrow dp[i] = dp[i - 1] + r$ 。</li>
+<li>用优惠卡 $\rightarrow dp[i] = \min_{j=1}^{n} (dp[x[j]] + c[j])$ ，其中 $x_j$ 表示对于第 $j$ 张卡最小的 $x$ 使得第 $x+1$ 到第 $i$ 辆车都能被第 $j$ 张卡作用到。考虑到 $dp_i$ 本身是单调不降的，所以在最小的 $x$ 处转移一定是最优的。</li>
+</ul>
+<p>对于第一种情况直接转移即可。对于第二种情况，观察可以发现对于同一张卡 $j$ ， $i$ 增大时 $x_j$ 也是单调不降的，所以对于每一个 $j$ 单独双指针维护一个 $x_j$ 进行转移即可。<br>总复杂度为 $O(n \cdot \sum q_i)$ 。</p>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span><span class="token string">&lt;bits/stdc++.h></span></span>
+<span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
+
+<span class="token keyword">using</span> ll<span class="token operator">=</span><span class="token keyword">long</span> <span class="token keyword">long</span><span class="token punctuation">;</span>
+
+<span class="token keyword">constexpr</span> <span class="token keyword">int</span> N<span class="token operator">=</span><span class="token number">3e5</span><span class="token operator">+</span><span class="token number">5</span><span class="token punctuation">;</span>
+<span class="token keyword">constexpr</span> <span class="token keyword">int</span> M<span class="token operator">=</span><span class="token number">5e2</span><span class="token operator">+</span><span class="token number">5</span><span class="token punctuation">;</span>
+
+<span class="token keyword">int</span> n<span class="token punctuation">,</span>m<span class="token punctuation">,</span>r<span class="token punctuation">;</span>
+<span class="token keyword">int</span> a<span class="token punctuation">[</span>N<span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token keyword">int</span> d<span class="token punctuation">[</span>M<span class="token punctuation">]</span><span class="token punctuation">,</span>k<span class="token punctuation">[</span>M<span class="token punctuation">]</span><span class="token punctuation">,</span>c<span class="token punctuation">[</span>M<span class="token punctuation">]</span><span class="token punctuation">,</span>x<span class="token punctuation">[</span>M<span class="token punctuation">]</span><span class="token punctuation">;</span>
+ll dp<span class="token punctuation">[</span>N<span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+    ios<span class="token double-colon punctuation">::</span><span class="token function">sync_with_stdio</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    cin<span class="token punctuation">.</span><span class="token function">tie</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>cout<span class="token punctuation">.</span><span class="token function">tie</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    
+    cin<span class="token operator">>></span>n<span class="token operator">>></span>m<span class="token operator">>></span>r<span class="token punctuation">;</span>
+    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span>i<span class="token operator">&lt;=</span>n<span class="token punctuation">;</span>i<span class="token operator">++</span><span class="token punctuation">)</span> cin<span class="token operator">>></span>d<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token operator">>></span>k<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token operator">>></span>c<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">,</span>x<span class="token punctuation">,</span>y<span class="token punctuation">;</span>i<span class="token operator">&lt;=</span>m<span class="token punctuation">;</span>i<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+        cin<span class="token operator">>></span>x<span class="token operator">>></span>y<span class="token punctuation">;</span>
+        <span class="token keyword">while</span><span class="token punctuation">(</span>y<span class="token operator">--</span><span class="token punctuation">)</span> a<span class="token punctuation">[</span><span class="token operator">++</span>a<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token operator">=</span>x<span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token function">sort</span><span class="token punctuation">(</span>a<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">,</span>a<span class="token operator">+</span><span class="token number">1</span><span class="token operator">+</span>a<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span>i<span class="token operator">&lt;=</span>a<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">;</span>i<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+        dp<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token operator">=</span>dp<span class="token punctuation">[</span>i<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token operator">+</span>r<span class="token punctuation">;</span>
+        <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> j<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span>j<span class="token operator">&lt;=</span>n<span class="token punctuation">;</span>j<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+            <span class="token keyword">while</span><span class="token punctuation">(</span>a<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token operator">-</span>a<span class="token punctuation">[</span>x<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token operator">>=</span>d<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token operator">||</span>i<span class="token operator">-</span>x<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token operator">></span>k<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">)</span> x<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token operator">++</span><span class="token punctuation">;</span>
+            dp<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token operator">=</span><span class="token function">min</span><span class="token punctuation">(</span>dp<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">,</span>dp<span class="token punctuation">[</span>x<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token operator">+</span>c<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+    cout<span class="token operator">&lt;&lt;</span>dp<span class="token punctuation">[</span>a<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token operator">&amp;&amp;</span><span class="token boolean">false</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<hr>
+<h2 id="J-Descent-of-Dragons"><a href="#J-Descent-of-Dragons" class="headerlink" title="J. Descent of Dragons"></a>J. Descent of Dragons</h2><h3 id="tag-1"><a href="#tag-1" class="headerlink" title="tag"></a>tag</h3><ul>
 <li>主席树</li>
 <li>二分</li>
 </ul>
-<h3 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h3><p>给定长为 $n$ 的序列，初始全为 $0$ ， $q$ 次操作，每次操作将区间 $[l,r]$ 内等于 $x$ 的数加 $1$ 或者查询区间 $[l,r]$ 的最大值。<br>其中 $1 \leq n, q \leq 5 \cdot 10^5$ 。</p>
-<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>其实赛后重新看也没有什么思路，题解给出的似乎是 $5 \cdot 10^5$ 棵平衡树的合并加维护区间标记？不是很理解。最后是参照了另一种主席树的做法，重新梳理一遍。<br>由操作 $1$ 将所有 $x$ 的值加 $1$ 可以联想到版本更新操作，考虑对值域可持久化，第 $i$ 棵树维护所有值大于等于 $i$ 的下标。<br>考虑查询操作，查询区间 $[l,r]$ 的最大值时可以考虑二分答案，查询对应树维护的区间内是否有值，二分加查询复杂度为 $O(log^2n)$ 。<br>考虑更新操作，每次更新区间 $[l,r]$ 内的数 $x$ 即考虑将第 $x$ 棵树在 $[l,r]$ 区间内的节点复制到第 $x + 1$ 棵树内，因为考虑的维护的是值大于等于 $x$ 所有位置，所以第 $x$ 棵树内的值一定是第 $x+1$ 棵树的超集，直接复制节点是对的。因为树包含在区间 $[l,r]$ 内的节点数量是 $O(logn)$ 级别的， $q$ 次操作总共增加的节点个数是 $O(n \cdot logn)$ 级别的，空间给了 $1024 MB$ ，完全足够。同理更新操作的总复杂度也是 $O(n \cdot logn)$ 级别的。<br>更新加查询的总复杂度为 $O(n \cdot log^2n)$ 。</p>
-<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><p>注意节点空间大小。</p>
+<h3 id="题意-1"><a href="#题意-1" class="headerlink" title="题意"></a>题意</h3><p>给定长为 $n$ 的序列，初始全为 $0$ ， $q$ 次操作，每次操作将区间 $[l,r]$ 内等于 $x$ 的数加 $1$ 或者查询区间 $[l,r]$ 的最大值。<br>其中 $1 \leq n, q \leq 5 \cdot 10^5$ 。</p>
+<h3 id="思路-1"><a href="#思路-1" class="headerlink" title="思路"></a>思路</h3><p>其实赛后重新看也没有什么思路，题解给出的似乎是 $5 \cdot 10^5$ 棵平衡树的合并加维护区间标记？不是很理解。最后是参照了另一种主席树的做法，重新梳理一遍。<br>由操作 $1$ 将所有 $x$ 的值加 $1$ 可以联想到版本更新操作，考虑对值域可持久化，第 $i$ 棵树维护所有值大于等于 $i$ 的下标。<br>考虑查询操作，查询区间 $[l,r]$ 的最大值时可以考虑二分答案，查询对应树维护的区间内是否有值，二分加查询复杂度为 $O(log^2n)$ 。<br>考虑更新操作，每次更新区间 $[l,r]$ 内的数 $x$ 即考虑将第 $x$ 棵树在 $[l,r]$ 区间内的节点复制到第 $x + 1$ 棵树内，因为考虑的维护的是值大于等于 $x$ 所有位置，所以第 $x$ 棵树内的值一定是第 $x+1$ 棵树的超集，直接复制节点是对的。因为树包含在区间 $[l,r]$ 内的节点数量是 $O(logn)$ 级别的， $q$ 次操作总共增加的节点个数是 $O(n \cdot logn)$ 级别的，空间给了 $1024 MB$ ，完全足够。同理更新操作的总复杂度也是 $O(n \cdot logn)$ 级别的。<br>更新加查询的总复杂度为 $O(n \cdot log^2n)$ 。</p>
+<h3 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h3><p>注意节点空间大小。</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span><span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
 
@@ -514,7 +569,7 @@
     style="padding-right: 2px;">
   </i>目录
 </div>
-<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#J-Descent-of-Dragons"><span class="toc-text">J. Descent of Dragons</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#tag"><span class="toc-text">tag</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E6%84%8F"><span class="toc-text">题意</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF"><span class="toc-text">思路</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81"><span class="toc-text">代码</span></a></li></ol></li></ol>
+<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#H-The-Boomsday-Project"><span class="toc-text">H. The Boomsday Project</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#tag"><span class="toc-text">tag</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E6%84%8F"><span class="toc-text">题意</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF"><span class="toc-text">思路</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81"><span class="toc-text">代码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#J-Descent-of-Dragons"><span class="toc-text">J. Descent of Dragons</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#tag-1"><span class="toc-text">tag</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E6%84%8F-1"><span class="toc-text">题意</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF-1"><span class="toc-text">思路</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81-1"><span class="toc-text">代码</span></a></li></ol></li></ol>
 </div></main>
             <aside class="left-column">
               
@@ -578,7 +633,7 @@
     style="padding-right: 2px;">
   </i>目录
 </div>
-<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#J-Descent-of-Dragons"><span class="toc-text">J. Descent of Dragons</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#tag"><span class="toc-text">tag</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E6%84%8F"><span class="toc-text">题意</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF"><span class="toc-text">思路</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81"><span class="toc-text">代码</span></a></li></ol></li></ol>
+<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#H-The-Boomsday-Project"><span class="toc-text">H. The Boomsday Project</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#tag"><span class="toc-text">tag</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E6%84%8F"><span class="toc-text">题意</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF"><span class="toc-text">思路</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81"><span class="toc-text">代码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#J-Descent-of-Dragons"><span class="toc-text">J. Descent of Dragons</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#tag-1"><span class="toc-text">tag</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E6%84%8F-1"><span class="toc-text">题意</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF-1"><span class="toc-text">思路</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81-1"><span class="toc-text">代码</span></a></li></ol></li></ol>
       </div>
     </article>
   
@@ -640,12 +695,6 @@
       </a>
     
       <a 
-        href="/tags/%E7%8A%B6%E5%8E%8BDP/" 
-        title="状压DP">
-        <div class="tags-list-item">状压DP</div>
-      </a>
-    
-      <a 
         href="/tags/%E6%A6%82%E7%8E%87DP/" 
         title="概率DP">
         <div class="tags-list-item">概率DP</div>
@@ -655,6 +704,12 @@
         href="/tags/%E6%95%B0%E4%BD%8DDP/" 
         title="数位DP">
         <div class="tags-list-item">数位DP</div>
+      </a>
+    
+      <a 
+        href="/tags/%E7%8A%B6%E5%8E%8BDP/" 
+        title="状压DP">
+        <div class="tags-list-item">状压DP</div>
       </a>
     
       <a 
@@ -681,7 +736,7 @@
     style="padding-right: 2px;">
   </i>目录
 </div>
-<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#J-Descent-of-Dragons"><span class="toc-text">J. Descent of Dragons</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#tag"><span class="toc-text">tag</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E6%84%8F"><span class="toc-text">题意</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF"><span class="toc-text">思路</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81"><span class="toc-text">代码</span></a></li></ol></li></ol>
+<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#H-The-Boomsday-Project"><span class="toc-text">H. The Boomsday Project</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#tag"><span class="toc-text">tag</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E6%84%8F"><span class="toc-text">题意</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF"><span class="toc-text">思路</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81"><span class="toc-text">代码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#J-Descent-of-Dragons"><span class="toc-text">J. Descent of Dragons</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#tag-1"><span class="toc-text">tag</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E6%84%8F-1"><span class="toc-text">题意</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF-1"><span class="toc-text">思路</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81-1"><span class="toc-text">代码</span></a></li></ol></li></ol>
     </article>
   
   
