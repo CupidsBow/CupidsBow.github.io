@@ -479,7 +479,7 @@ ll dp<span class="token punctuation">[</span>N<span class="token punctuation">]<
 <li>$G = 1$ 时， $t \in [0, H \cdot M)$ 所构成的是一个模 $H \cdot M$ 的完全剩余系，由剩余系的性质可以得到 $t \cdot (H - 1)$ 也是一个模 $H \cdot M$ 的完全剩余系，所以只需要算出 $[0, H \cdot M)$ 内小于等于 $A$ 的数量即可，答案显然是 $A + 1$ 。</li>
 <li>$G \neq 1$ 时，由同余方程的性质 $a \cdot c \equiv b \cdot c \mod d \iff a \equiv b \mod \frac{d}{\gcd(c, d)}$ 可以把原式子转换为 $\sum\limits_{i=0}^{H \cdot M - 1} [\frac{t \cdot (H-1)}{G} \mod \frac{H \cdot M}{G} \leq \lfloor \frac{A}{G} \rfloor]$ 。这相当于是把线段 $[0,H \cdot M)$ 均分成了 $G$ 份， 其中每份都是一个模 $\frac{H \cdot M}{G}$ 的完全剩余系，也就是上一种情况，因此每一段都对答案有 $\lfloor \frac{A}{G} \rfloor + 1$ 的贡献，总贡献即为 $G \cdot (\lfloor \frac{A}{G} \rfloor + 1)$ 。</li>
 </ul>
-<p><strong>对于第二个式子</strong><br>除了 $t = H \cdot M$ 处不能取到外其余和第一个式子相同，因此对答案的贡献为 $G \cdot \lfloor \frac{A}{G} \rfloor$ 。<br>所以最后答案即为 $G \cdot (2 \cdot \lfloor \frac{A}{G} \rfloor + 1)$ 。<br>总复杂度为 $O(log(H \cdot M))$ 。</p>
+<p><strong>对于第二个式子</strong><br>除了 $t = H \cdot M$ 处不能取到外其余和第一个式子相同，因此对答案的贡献为 $G \cdot \lfloor \frac{A}{G} \rfloor$ 。<br>所以最后答案即为 $G \cdot (2 \cdot \lfloor \frac{A}{G} \rfloor + 1)$ 。<br>注意 $A = \frac{H \cdot M}{2}$ 的情况下所有位置都满足条件，特判答案为 $H \cdot M$ 。<br>总复杂度为 $O(log(H \cdot M))$ 。</p>
 <h3 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h3><pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span><span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
 
@@ -780,12 +780,6 @@ ll ans<span class="token punctuation">;</span>
       </a>
     
       <a 
-        href="/tags/%E7%8A%B6%E5%8E%8BDP/" 
-        title="状压DP">
-        <div class="tags-list-item">状压DP</div>
-      </a>
-    
-      <a 
         href="/tags/%E6%A6%82%E7%8E%87DP/" 
         title="概率DP">
         <div class="tags-list-item">概率DP</div>
@@ -795,6 +789,12 @@ ll ans<span class="token punctuation">;</span>
         href="/tags/%E6%95%B0%E4%BD%8DDP/" 
         title="数位DP">
         <div class="tags-list-item">数位DP</div>
+      </a>
+    
+      <a 
+        href="/tags/%E7%8A%B6%E5%8E%8BDP/" 
+        title="状压DP">
+        <div class="tags-list-item">状压DP</div>
       </a>
     
       <a 
