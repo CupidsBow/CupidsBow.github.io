@@ -619,7 +619,7 @@ ll ans<span class="token punctuation">;</span>
 <li>sosdp</li>
 </ul>
 <h3 id="题意-5"><a href="#题意-5" class="headerlink" title="题意"></a>题意</h3><p>有 $m$ 个问题，每个问题的结果为 $A$ 或 $B$ ，有 $n$ 份答案，每份答案可以用一个长为 $m$ 的只含 $A, B$ 的字符串表示，求有多少个问题的非空子集使得有不少于 $k$ 对答案不完全相同。<br>其中 $1 \leq n \leq 2 \cdot 10^5, 1 \leq m \leq 20, 1 \leq k \leq \frac{n \cdot (n - 1)}{2}$ 。</p>
-<h3 id="思路-5"><a href="#思路-5" class="headerlink" title="思路"></a>思路</h3><p>考虑到 $m$ 的范围只有 $[0, 20]$ ，考虑用 $0, 1$ 替代 $A, B$ ，则问题转换为有 $n$ 个 $m$ 位 $2$ 进制数，求有多少个位的子集使得有不少于 $k$ 对数字对应位上异或起来不为 $0$ 。<br>考虑两个数 $x = (101)_2, y = (110)<em>2$ ，则 $x \bigoplus y = z = (011)<em>2$ 。则可以发现只要我选择的集合里包含了 $z$ 中 $1$ 所在的位置（ $0$ 位和 $1$ 位），那么这一对数 $(x, y)$ 就会对我选择的这一集合产生贡献。<br>那么我可以先考虑求出原数组中的数两两异或后每个结果出现的次数，即：<br>$$F(S) = \sum</em>{x=0}^{2^m-1}\sum</em>{y=x+1}^{2^m-1} [x \bigoplus y = S]$$<br>$F(S)$ 表示异或后结果中 $S$ 出现的次数，很明显这可以用一个 $fwt$ 处理出来。那么所有与 $S$ 有交集的集合都会得到 $F(S)$ 的贡献，容斥一下把所有与 $S$ 不相交的集合减去相应的贡献即可，这里也可以用一个 $fwt$ 或者 $sosdp$ 处理好。<br>$fwt$ 或者 $sosdp$ 的总复杂度为 $O(m \cdot 2^m)$ 。</p>
+<h3 id="思路-5"><a href="#思路-5" class="headerlink" title="思路"></a>思路</h3><p>考虑到 $m$ 的范围只有 $[0, 20]$ ，考虑用 $0, 1$ 替代 $A, B$ ，则问题转换为有 $n$ 个 $m$ 位 $2$ 进制数，求有多少个位的子集使得有不少于 $k$ 对数字对应位上异或起来不为 $0$ 。<br>考虑两个数 $x = (101)$<sub>$2$</sub>， $y = (110)$<sub>$2$</sub>，则 $x \bigoplus y = z = (011)$<sub>$2$</sub>。则可以发现只要我选择的集合里包含了 $z$ 中 $1$ 所在的位置（ $0$ 位和 $1$ 位），那么这一对数 $(x, y)$ 就会对我选择的这一集合产生贡献。<br>那么我可以先考虑求出原数组中的数两两异或后每个结果出现的次数，即：<br>$$F(S) = \sum_{x=0}^{2^m-1}\sum_{y=x+1}^{2^m-1} [x \bigoplus y = S]$$<br>$F(S)$ 表示异或后结果中 $S$ 出现的次数，很明显这可以用一个 $fwt$ 处理出来。那么所有与 $S$ 有交集的集合都会得到 $F(S)$ 的贡献，容斥一下把所有与 $S$ 不相交的集合减去相应的贡献即可，这里也可以用一个 $fwt$ 或者 $sosdp$ 处理好。<br>$fwt$ 或者 $sosdp$ 的总复杂度为 $O(m \cdot 2^m)$ 。</p>
 <h3 id="代码-5"><a href="#代码-5" class="headerlink" title="代码"></a>代码</h3><pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span><span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
 
@@ -801,17 +801,17 @@ ll k<span class="token punctuation">,</span>f<span class="token punctuation">[</
   </div>
   <div class="categories-list">
     
-      <a href="/categories/%E5%8C%BA%E5%9F%9F%E8%B5%9B/">
-        <div class="categories-list-item">
-          区域赛
-          <span class="categories-list-item-badge">1</span>
-        </div>
-      </a>
-    
       <a href="/categories/%E9%A2%98%E8%A7%A3/">
         <div class="categories-list-item">
           题解
           <span class="categories-list-item-badge">5</span>
+        </div>
+      </a>
+    
+      <a href="/categories/%E5%8C%BA%E5%9F%9F%E8%B5%9B/">
+        <div class="categories-list-item">
+          区域赛
+          <span class="categories-list-item-badge">1</span>
         </div>
       </a>
     
