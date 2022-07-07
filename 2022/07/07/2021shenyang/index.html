@@ -333,7 +333,7 @@
     
     
       <span class="dot"></span>
-      <span>1.1k 字</span>
+      <span>1.4k 字</span>
     
   </div>
   
@@ -435,8 +435,8 @@ ll dp<span class="token punctuation">[</span>N<span class="token operator">*</sp
 <li>后缀自动机</li>
 <li>kmp</li>
 </ul>
-<h3 id="题意-1"><a href="#题意-1" class="headerlink" title="题意"></a>题意</h3><p>…</p>
-<h3 id="思路-1"><a href="#思路-1" class="headerlink" title="思路"></a>思路</h3><p>…</p>
+<h3 id="题意-1"><a href="#题意-1" class="headerlink" title="题意"></a>题意</h3><p>给定小写字符串 $s$ ，对 $s$ 的每个前缀 $prefix_i$ ，求 $prefix_i$ 字典序最大的子串，若有多个求最左的，输出子串的起终点。<br>其中 $1 \leq |s| \leq 10^6$ 。</p>
+<h3 id="思路-1"><a href="#思路-1" class="headerlink" title="思路"></a>思路</h3><p>解法很多，这里写的是一种 $sam$ 的做法。<br>对每个前缀，我们记录当前前缀中字典序最大的子串所在路径上的点并在这些点上打上标记，并记录终止接点，记为 $now$ 。<br>那么每次在当前前缀的末尾添加一个字符， $now$ 节点可能会直接选权值最大的边往后走一步，也可能会回退若干步再往后走，这种情况会发生当且仅当新加入的字符在前一前缀构成的路径上连出了比原来边权值更大的边，所以在 $sam$ $extend$ 同时还要记录路径上满足这一条件的深度最小的节点。<br>需要注意的是在构建 $sam$ 的过程中可能会将一些边重定向到复制出的 $clone$ 节点上，如果最大字串的路径经过这些边，对应节点的标记也要改变，不能理解的话可以先补习 $sam$ 的构建过程。<br>在构建 $sam$ 的过程中，每添加一个字符 $now$ 节点会往后走一步，总共往后走加上回退的总次数不会超过 $O(n)$ ，因此复杂度为 $O(n)$ 。</p>
 <h3 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h3><pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span><span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
 
@@ -445,7 +445,6 @@ ll dp<span class="token punctuation">[</span>N<span class="token operator">*</sp
 <span class="token keyword">constexpr</span> <span class="token keyword">int</span> N<span class="token operator">=</span><span class="token number">1e6</span><span class="token operator">+</span><span class="token number">5</span><span class="token punctuation">;</span>
 <span class="token keyword">constexpr</span> <span class="token keyword">int</span> M<span class="token operator">=</span><span class="token number">26</span><span class="token punctuation">;</span>
 
-vector<span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token operator">></span> vec<span class="token punctuation">;</span>
 <span class="token keyword">int</span> n<span class="token punctuation">;</span>
 <span class="token keyword">char</span> s<span class="token punctuation">[</span>N<span class="token punctuation">]</span><span class="token punctuation">;</span>
 <span class="token keyword">int</span> minndep<span class="token punctuation">,</span>now<span class="token punctuation">;</span>
@@ -540,7 +539,7 @@ vector<span class="token operator">&lt;</span><span class="token keyword">int</s
     <span class="token punctuation">&#125;</span>
 
     <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token operator">&amp;&amp;</span><span class="token boolean">false</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
   </div>
   <div>
     
@@ -704,9 +703,27 @@ vector<span class="token operator">&lt;</span><span class="token keyword">int</s
   <div class="tags-list">
     
       <a 
-        href="/tags/%E4%BA%8C%E5%88%86/" 
-        title="二分">
-        <div class="tags-list-item">二分</div>
+        href="/tags/%E5%8C%BA%E5%9F%9F%E8%B5%9B/" 
+        title="区域赛">
+        <div class="tags-list-item">区域赛</div>
+      </a>
+    
+      <a 
+        href="/tags/%E7%8A%B6%E5%8E%8BDP/" 
+        title="状压DP">
+        <div class="tags-list-item">状压DP</div>
+      </a>
+    
+      <a 
+        href="/tags/%E6%95%B0%E4%BD%8DDP/" 
+        title="数位DP">
+        <div class="tags-list-item">数位DP</div>
+      </a>
+    
+      <a 
+        href="/tags/%E6%A6%82%E7%8E%87DP/" 
+        title="概率DP">
+        <div class="tags-list-item">概率DP</div>
       </a>
     
       <a 
@@ -722,27 +739,9 @@ vector<span class="token operator">&lt;</span><span class="token keyword">int</s
       </a>
     
       <a 
-        href="/tags/%E5%8C%BA%E5%9F%9F%E8%B5%9B/" 
-        title="区域赛">
-        <div class="tags-list-item">区域赛</div>
-      </a>
-    
-      <a 
-        href="/tags/%E6%A6%82%E7%8E%87DP/" 
-        title="概率DP">
-        <div class="tags-list-item">概率DP</div>
-      </a>
-    
-      <a 
-        href="/tags/%E6%95%B0%E4%BD%8DDP/" 
-        title="数位DP">
-        <div class="tags-list-item">数位DP</div>
-      </a>
-    
-      <a 
-        href="/tags/%E7%8A%B6%E5%8E%8BDP/" 
-        title="状压DP">
-        <div class="tags-list-item">状压DP</div>
+        href="/tags/%E4%BA%8C%E5%88%86/" 
+        title="二分">
+        <div class="tags-list-item">二分</div>
       </a>
     
   </div>
