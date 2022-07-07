@@ -49,7 +49,7 @@
         content="2022-07-07">
       <meta 
         property="og:article:modified_time" 
-        content="2022-07-07">
+        content="2022-07-08">
       <meta 
         property="og:article:author" 
         content="Cupids_Bow">
@@ -333,7 +333,7 @@
     
     
       <span class="dot"></span>
-      <span>1.4k 字</span>
+      <span>1.5k 字</span>
     
   </div>
   
@@ -370,7 +370,7 @@
 <li>容斥</li>
 </ul>
 <h3 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h3><p>给定一张 $n \cdot 2$ 个点的完全图，从图中去掉恰好 $n \cdot 2 - 1$ 条边，且这 $n \cdot 2 - 1$ 条边恰好构成一棵树，求去边之后的图的完美匹配数。<br>其中 $1 \leq n \leq 2 \cdot 10^3$ 。</p>
-<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>题意不难理解成：计算完全图中不包含任何一条树边的完美匹配数。<br>容易想到容斥，设 $F(S)$ 为指定 $S$ 条树边匹配，剩余点任意匹配的方案数，那么容斥可以得到最后答案 $ans = \sum\limits_{S=0}^{n} F(S) \cdot (-1)^{|S|}$ 。<br>对于 $F(S)$ 的计算，等于选定 $S$ 条互不相交的树边的方案数 $G(S)$ 乘上剩余点任意匹配的方案数 $H(S)$ ， $G(S)$ 可以一次树 DP 处理出来， $H(S)$ 可以 $O(n)$ 地处理出来。最后计算即可。<br>其中树 DP 的复杂度为 $O(n^2)$ 而不是 $O(n^3)$ ，因为考虑每两个点只会在他们的 $lca$ 处被合并一次。总复杂度为 $O(n^2)$ 。</p>
+<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>题意不难理解成：计算完全图中不包含任何一条树边的完美匹配数。<br>“不包含任何一条边”，容易想到容斥，设 $F(S)$ 为指定 $S$ 条树边匹配，剩余点任意匹配的方案数，那么容斥（也可以看成特殊情况下的二项式反演）可以得到最后的答案 $ans = \sum\limits_{S=0}^{n} F(S) \cdot (-1)^{|S|}$ 。<br>对于 $F(S)$ 的计算，等于选定 $S$ 条互不相交的树边的方案数 $G(S)$ 乘上剩余点任意匹配的方案数 $H(S)$ ， $G(S)$ 可以一次树 DP 处理出来， $H(S)$ 可以 $O(n)$ 地处理出来。最后计算即可。<br>其中树 DP 的复杂度为 $O(n^2)$ 而不是 $O(n^3)$ ，因为考虑每两个点只会在他们的 $lca$ 处被合并一次。总复杂度为 $O(n^2)$ 。</p>
 <h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span><span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
 
