@@ -38,7 +38,7 @@
     
       <meta 
         property="og:img" 
-        content="&lt;p&gt;2020 沈阳补题记录与部分题目题解（待补…）&lt;/p&gt;">
+        content="&lt;p&gt;2020 沈阳补题记录与部分题目题解&lt;/p&gt;">
     
     
       <meta 
@@ -49,7 +49,7 @@
         content="2022-07-03">
       <meta 
         property="og:article:modified_time" 
-        content="2022-07-05">
+        content="2022-07-07">
       <meta 
         property="og:article:author" 
         content="Cupids_Bow">
@@ -333,7 +333,7 @@
     
     
       <span class="dot"></span>
-      <span>3.5k 字</span>
+      <span>3.6k 字</span>
     
   </div>
   
@@ -360,7 +360,7 @@
   <div 
     id="section" 
     class="post-content">
-    <p>2020 沈阳补题记录与部分题目题解（待补…）</p>
+    <p>2020 沈阳补题记录与部分题目题解</p>
 <span id="more"></span>
 
 <p>说起来 20 沈阳可能是唯一一场（第一场）线下打的 xcpc 了，首先祝贺 TS1队四题拿银证明自己。</p>
@@ -612,15 +612,21 @@ ll ans<span class="token punctuation">;</span>
 
     <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token operator">&amp;&amp;</span><span class="token boolean">false</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <hr>
-<h2 id="M-United-in-Stormwind"><a href="#M-United-in-Stormwind" class="headerlink" title="M. United in Stormwind"></a>M. United in Stormwind</h2><h3 id="tag-5"><a href="#tag-5" class="headerlink" title="tag"></a>tag</h3><ul>
+<h2 id="K-Scholomance-Academy"><a href="#K-Scholomance-Academy" class="headerlink" title="K. Scholomance Academy"></a>K. Scholomance Academy</h2><h3 id="tag-5"><a href="#tag-5" class="headerlink" title="tag"></a>tag</h3><ul>
+<li>模拟</li>
+</ul>
+<h3 id="题意-5"><a href="#题意-5" class="headerlink" title="题意"></a>题意</h3><p>大模拟。</p>
+<h3 id="思路-5"><a href="#思路-5" class="headerlink" title="思路"></a>思路</h3><p>略</p>
+<h3 id="代码-5"><a href="#代码-5" class="headerlink" title="代码"></a>代码</h3><p>略</p>
+<hr>
+<h2 id="M-United-in-Stormwind"><a href="#M-United-in-Stormwind" class="headerlink" title="M. United in Stormwind"></a>M. United in Stormwind</h2><h3 id="tag-6"><a href="#tag-6" class="headerlink" title="tag"></a>tag</h3><ul>
 <li>fwt</li>
 <li>sosdp</li>
 </ul>
-<h3 id="题意-5"><a href="#题意-5" class="headerlink" title="题意"></a>题意</h3><p>有 $m$ 个问题，每个问题的结果为 $A$ 或 $B$ ，有 $n$ 份答案，每份答案可以用一个长为 $m$ 的只含 $A, B$ 的字符串表示，求有多少个问题的非空子集使得有不少于 $k$ 对答案不完全相同。<br>其中 $1 \leq n \leq 2 \cdot 10^5, 1 \leq m \leq 20, 1 \leq k \leq \frac{n \cdot (n - 1)}{2}$ 。</p>
-<h3 id="思路-5"><a href="#思路-5" class="headerlink" title="思路"></a>思路</h3><p>考虑到 $m$ 的范围只有 $[0, 20]$ ，考虑用 $0, 1$ 替代 $A, B$ ，则问题转换为有 $n$ 个 $m$ 位 $2$ 进制数，求有多少个位的子集使得有不少于 $k$ 对数字对应位上异或起来不为 $0$ 。<br>考虑两个数 $x = (101)$<sub>$2$</sub>， $y = (110)$<sub>$2$</sub>，则 $x \bigoplus y = z = (011)$<sub>$2$</sub>。则可以发现只要我选择的集合里包含了 $z$ 中 $1$ 所在的位置（ $0$ 位和 $1$ 位），那么这一对数 $(x, y)$ 就会对我选择的这一集合产生贡献。<br>那么我可以先考虑求出原数组中的数两两异或后每个结果出现的次数，即：<br>$$F(S) = \sum_{x=0}^{2^m-1}\sum_{y=x+1}^{2^m-1} [x \bigoplus y = S]$$<br>$F(S)$ 表示异或后结果中 $S$ 出现的次数，很明显这可以用一次 $fwt$ 处理出来。那么所有与 $S$ 有交集的集合都会得到 $F(S)$ 的贡献，容斥一下把所有与 $S$ 不相交的集合减去相应的贡献即可，这里也可以用一个 $fwt$ 或者 $sosdp$ 处理好。<br>$fwt$ 或者 $sosdp$ 的总复杂度为 $O(m \cdot 2^m)$ 。</p>
-<h3 id="代码-5"><a href="#代码-5" class="headerlink" title="代码"></a>代码</h3><pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span><span class="token string">&lt;bits/stdc++.h></span></span>
+<h3 id="题意-6"><a href="#题意-6" class="headerlink" title="题意"></a>题意</h3><p>有 $m$ 个问题，每个问题的结果为 $A$ 或 $B$ ，有 $n$ 份答案，每份答案可以用一个长为 $m$ 的只含 $A, B$ 的字符串表示，求有多少个问题的非空子集使得有不少于 $k$ 对答案不完全相同。<br>其中 $1 \leq n \leq 2 \cdot 10^5, 1 \leq m \leq 20, 1 \leq k \leq \frac{n \cdot (n - 1)}{2}$ 。</p>
+<h3 id="思路-6"><a href="#思路-6" class="headerlink" title="思路"></a>思路</h3><p>考虑到 $m$ 的范围只有 $[0, 20]$ ，考虑用 $0, 1$ 替代 $A, B$ ，则问题转换为有 $n$ 个 $m$ 位 $2$ 进制数，求有多少个位的子集使得有不少于 $k$ 对数字对应位上异或起来不为 $0$ 。<br>考虑两个数 $x = (101)$<sub>$2$</sub>， $y = (110)$<sub>$2$</sub>，则 $x \bigoplus y = z = (011)$<sub>$2$</sub>。则可以发现只要我选择的集合里包含了 $z$ 中 $1$ 所在的位置（ $0$ 位和 $1$ 位），那么这一对数 $(x, y)$ 就会对我选择的这一集合产生贡献。<br>那么我可以先考虑求出原数组中的数两两异或后每个结果出现的次数，即：<br>$$F(S) = \sum_{x=0}^{2^m-1}\sum_{y=x+1}^{2^m-1} [x \bigoplus y = S]$$<br>$F(S)$ 表示异或后结果中 $S$ 出现的次数，很明显这可以用一次 $fwt$ 处理出来。那么所有与 $S$ 有交集的集合都会得到 $F(S)$ 的贡献，容斥一下把所有与 $S$ 不相交的集合减去相应的贡献即可，这里也可以用一个 $fwt$ 或者 $sosdp$ 处理好。<br>$fwt$ 或者 $sosdp$ 的总复杂度为 $O(m \cdot 2^m)$ 。</p>
+<h3 id="代码-6"><a href="#代码-6" class="headerlink" title="代码"></a>代码</h3><pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span><span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
 
 <span class="token keyword">using</span> ll<span class="token operator">=</span><span class="token keyword">long</span> <span class="token keyword">long</span><span class="token punctuation">;</span>
@@ -696,6 +702,20 @@ ll k<span class="token punctuation">,</span>f<span class="token punctuation">[</
 </article>
 <div class="nav">
   
+    <div class="nav-item-prev">
+      <a 
+        href="/2022/07/07/2021shenyang/" 
+        class="nav-link">
+        <i class="iconfont icon-left nav-prev-icon"></i>
+        <div>
+          <div class="nav-label">上一篇</div>
+          
+            <div class="nav-title">2021shenyang </div>
+          
+        </div>
+      </a>
+    </div>
+  
   
     <div class="nav-item-next">
       <a 
@@ -722,7 +742,7 @@ ll k<span class="token punctuation">,</span>f<span class="token punctuation">[</
     style="padding-right: 2px;">
   </i>目录
 </div>
-<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#D-Journey-to-Un%E2%80%99Goro"><span class="toc-text">D. Journey to Un’Goro</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#tag%EF%BC%9A"><span class="toc-text">tag：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E6%84%8F%EF%BC%9A"><span class="toc-text">题意：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF%EF%BC%9A"><span class="toc-text">思路：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%EF%BC%9A"><span class="toc-text">代码：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#F-Kobolds-and-Catacombs"><span class="toc-text">F. Kobolds and Catacombs</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#tag"><span class="toc-text">tag</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E6%84%8F"><span class="toc-text">题意</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF"><span class="toc-text">思路</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81"><span class="toc-text">代码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#G-The-Witchwood"><span class="toc-text">G. The Witchwood</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#tag-1"><span class="toc-text">tag</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E6%84%8F-1"><span class="toc-text">题意</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF-1"><span class="toc-text">思路</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81-1"><span class="toc-text">代码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#H-The-Boomsday-Project"><span class="toc-text">H. The Boomsday Project</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#tag-2"><span class="toc-text">tag</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E6%84%8F-2"><span class="toc-text">题意</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF-2"><span class="toc-text">思路</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81-2"><span class="toc-text">代码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#I-Rise-of-Shadows"><span class="toc-text">I. Rise of Shadows</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#tag-3"><span class="toc-text">tag</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E6%84%8F-3"><span class="toc-text">题意</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF-3"><span class="toc-text">思路</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81-3"><span class="toc-text">代码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#J-Descent-of-Dragons"><span class="toc-text">J. Descent of Dragons</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#tag-4"><span class="toc-text">tag</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E6%84%8F-4"><span class="toc-text">题意</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF-4"><span class="toc-text">思路</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81-4"><span class="toc-text">代码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#M-United-in-Stormwind"><span class="toc-text">M. United in Stormwind</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#tag-5"><span class="toc-text">tag</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E6%84%8F-5"><span class="toc-text">题意</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF-5"><span class="toc-text">思路</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81-5"><span class="toc-text">代码</span></a></li></ol></li></ol>
+<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#D-Journey-to-Un%E2%80%99Goro"><span class="toc-text">D. Journey to Un’Goro</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#tag%EF%BC%9A"><span class="toc-text">tag：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E6%84%8F%EF%BC%9A"><span class="toc-text">题意：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF%EF%BC%9A"><span class="toc-text">思路：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%EF%BC%9A"><span class="toc-text">代码：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#F-Kobolds-and-Catacombs"><span class="toc-text">F. Kobolds and Catacombs</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#tag"><span class="toc-text">tag</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E6%84%8F"><span class="toc-text">题意</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF"><span class="toc-text">思路</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81"><span class="toc-text">代码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#G-The-Witchwood"><span class="toc-text">G. The Witchwood</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#tag-1"><span class="toc-text">tag</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E6%84%8F-1"><span class="toc-text">题意</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF-1"><span class="toc-text">思路</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81-1"><span class="toc-text">代码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#H-The-Boomsday-Project"><span class="toc-text">H. The Boomsday Project</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#tag-2"><span class="toc-text">tag</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E6%84%8F-2"><span class="toc-text">题意</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF-2"><span class="toc-text">思路</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81-2"><span class="toc-text">代码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#I-Rise-of-Shadows"><span class="toc-text">I. Rise of Shadows</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#tag-3"><span class="toc-text">tag</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E6%84%8F-3"><span class="toc-text">题意</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF-3"><span class="toc-text">思路</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81-3"><span class="toc-text">代码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#J-Descent-of-Dragons"><span class="toc-text">J. Descent of Dragons</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#tag-4"><span class="toc-text">tag</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E6%84%8F-4"><span class="toc-text">题意</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF-4"><span class="toc-text">思路</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81-4"><span class="toc-text">代码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#K-Scholomance-Academy"><span class="toc-text">K. Scholomance Academy</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#tag-5"><span class="toc-text">tag</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E6%84%8F-5"><span class="toc-text">题意</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF-5"><span class="toc-text">思路</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81-5"><span class="toc-text">代码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#M-United-in-Stormwind"><span class="toc-text">M. United in Stormwind</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#tag-6"><span class="toc-text">tag</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E6%84%8F-6"><span class="toc-text">题意</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF-6"><span class="toc-text">思路</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81-6"><span class="toc-text">代码</span></a></li></ol></li></ol>
 </div></main>
             <aside class="left-column">
               
@@ -741,7 +761,7 @@ ll k<span class="token punctuation">,</span>f<span class="token punctuation">[</
   <a 
     class="author-posts-count" 
     href="/archives">
-    <span>6</span>
+    <span>7</span>
     <span>文章</span>
   </a>
   <a 
@@ -786,7 +806,7 @@ ll k<span class="token punctuation">,</span>f<span class="token punctuation">[</
     style="padding-right: 2px;">
   </i>目录
 </div>
-<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#D-Journey-to-Un%E2%80%99Goro"><span class="toc-text">D. Journey to Un’Goro</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#tag%EF%BC%9A"><span class="toc-text">tag：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E6%84%8F%EF%BC%9A"><span class="toc-text">题意：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF%EF%BC%9A"><span class="toc-text">思路：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%EF%BC%9A"><span class="toc-text">代码：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#F-Kobolds-and-Catacombs"><span class="toc-text">F. Kobolds and Catacombs</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#tag"><span class="toc-text">tag</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E6%84%8F"><span class="toc-text">题意</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF"><span class="toc-text">思路</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81"><span class="toc-text">代码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#G-The-Witchwood"><span class="toc-text">G. The Witchwood</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#tag-1"><span class="toc-text">tag</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E6%84%8F-1"><span class="toc-text">题意</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF-1"><span class="toc-text">思路</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81-1"><span class="toc-text">代码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#H-The-Boomsday-Project"><span class="toc-text">H. The Boomsday Project</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#tag-2"><span class="toc-text">tag</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E6%84%8F-2"><span class="toc-text">题意</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF-2"><span class="toc-text">思路</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81-2"><span class="toc-text">代码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#I-Rise-of-Shadows"><span class="toc-text">I. Rise of Shadows</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#tag-3"><span class="toc-text">tag</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E6%84%8F-3"><span class="toc-text">题意</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF-3"><span class="toc-text">思路</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81-3"><span class="toc-text">代码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#J-Descent-of-Dragons"><span class="toc-text">J. Descent of Dragons</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#tag-4"><span class="toc-text">tag</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E6%84%8F-4"><span class="toc-text">题意</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF-4"><span class="toc-text">思路</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81-4"><span class="toc-text">代码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#M-United-in-Stormwind"><span class="toc-text">M. United in Stormwind</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#tag-5"><span class="toc-text">tag</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E6%84%8F-5"><span class="toc-text">题意</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF-5"><span class="toc-text">思路</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81-5"><span class="toc-text">代码</span></a></li></ol></li></ol>
+<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#D-Journey-to-Un%E2%80%99Goro"><span class="toc-text">D. Journey to Un’Goro</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#tag%EF%BC%9A"><span class="toc-text">tag：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E6%84%8F%EF%BC%9A"><span class="toc-text">题意：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF%EF%BC%9A"><span class="toc-text">思路：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%EF%BC%9A"><span class="toc-text">代码：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#F-Kobolds-and-Catacombs"><span class="toc-text">F. Kobolds and Catacombs</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#tag"><span class="toc-text">tag</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E6%84%8F"><span class="toc-text">题意</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF"><span class="toc-text">思路</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81"><span class="toc-text">代码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#G-The-Witchwood"><span class="toc-text">G. The Witchwood</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#tag-1"><span class="toc-text">tag</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E6%84%8F-1"><span class="toc-text">题意</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF-1"><span class="toc-text">思路</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81-1"><span class="toc-text">代码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#H-The-Boomsday-Project"><span class="toc-text">H. The Boomsday Project</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#tag-2"><span class="toc-text">tag</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E6%84%8F-2"><span class="toc-text">题意</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF-2"><span class="toc-text">思路</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81-2"><span class="toc-text">代码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#I-Rise-of-Shadows"><span class="toc-text">I. Rise of Shadows</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#tag-3"><span class="toc-text">tag</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E6%84%8F-3"><span class="toc-text">题意</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF-3"><span class="toc-text">思路</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81-3"><span class="toc-text">代码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#J-Descent-of-Dragons"><span class="toc-text">J. Descent of Dragons</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#tag-4"><span class="toc-text">tag</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E6%84%8F-4"><span class="toc-text">题意</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF-4"><span class="toc-text">思路</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81-4"><span class="toc-text">代码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#K-Scholomance-Academy"><span class="toc-text">K. Scholomance Academy</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#tag-5"><span class="toc-text">tag</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E6%84%8F-5"><span class="toc-text">题意</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF-5"><span class="toc-text">思路</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81-5"><span class="toc-text">代码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#M-United-in-Stormwind"><span class="toc-text">M. United in Stormwind</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#tag-6"><span class="toc-text">tag</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E6%84%8F-6"><span class="toc-text">题意</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF-6"><span class="toc-text">思路</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81-6"><span class="toc-text">代码</span></a></li></ol></li></ol>
       </div>
     </article>
   
@@ -801,17 +821,17 @@ ll k<span class="token punctuation">,</span>f<span class="token punctuation">[</
   </div>
   <div class="categories-list">
     
+      <a href="/categories/%E5%8C%BA%E5%9F%9F%E8%B5%9B/">
+        <div class="categories-list-item">
+          区域赛
+          <span class="categories-list-item-badge">2</span>
+        </div>
+      </a>
+    
       <a href="/categories/%E9%A2%98%E8%A7%A3/">
         <div class="categories-list-item">
           题解
           <span class="categories-list-item-badge">5</span>
-        </div>
-      </a>
-    
-      <a href="/categories/%E5%8C%BA%E5%9F%9F%E8%B5%9B/">
-        <div class="categories-list-item">
-          区域赛
-          <span class="categories-list-item-badge">1</span>
         </div>
       </a>
     
@@ -830,9 +850,27 @@ ll k<span class="token punctuation">,</span>f<span class="token punctuation">[</
   <div class="tags-list">
     
       <a 
-        href="/tags/%E4%BA%8C%E5%88%86/" 
-        title="二分">
-        <div class="tags-list-item">二分</div>
+        href="/tags/%E5%8C%BA%E5%9F%9F%E8%B5%9B/" 
+        title="区域赛">
+        <div class="tags-list-item">区域赛</div>
+      </a>
+    
+      <a 
+        href="/tags/%E7%8A%B6%E5%8E%8BDP/" 
+        title="状压DP">
+        <div class="tags-list-item">状压DP</div>
+      </a>
+    
+      <a 
+        href="/tags/%E6%95%B0%E4%BD%8DDP/" 
+        title="数位DP">
+        <div class="tags-list-item">数位DP</div>
+      </a>
+    
+      <a 
+        href="/tags/%E6%A6%82%E7%8E%87DP/" 
+        title="概率DP">
+        <div class="tags-list-item">概率DP</div>
       </a>
     
       <a 
@@ -848,27 +886,9 @@ ll k<span class="token punctuation">,</span>f<span class="token punctuation">[</
       </a>
     
       <a 
-        href="/tags/%E6%A6%82%E7%8E%87DP/" 
-        title="概率DP">
-        <div class="tags-list-item">概率DP</div>
-      </a>
-    
-      <a 
-        href="/tags/%E6%95%B0%E4%BD%8DDP/" 
-        title="数位DP">
-        <div class="tags-list-item">数位DP</div>
-      </a>
-    
-      <a 
-        href="/tags/%E5%8C%BA%E5%9F%9F%E8%B5%9B/" 
-        title="区域赛">
-        <div class="tags-list-item">区域赛</div>
-      </a>
-    
-      <a 
-        href="/tags/%E7%8A%B6%E5%8E%8BDP/" 
-        title="状压DP">
-        <div class="tags-list-item">状压DP</div>
+        href="/tags/%E4%BA%8C%E5%88%86/" 
+        title="二分">
+        <div class="tags-list-item">二分</div>
       </a>
     
   </div>
@@ -889,7 +909,7 @@ ll k<span class="token punctuation">,</span>f<span class="token punctuation">[</
     style="padding-right: 2px;">
   </i>目录
 </div>
-<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#D-Journey-to-Un%E2%80%99Goro"><span class="toc-text">D. Journey to Un’Goro</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#tag%EF%BC%9A"><span class="toc-text">tag：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E6%84%8F%EF%BC%9A"><span class="toc-text">题意：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF%EF%BC%9A"><span class="toc-text">思路：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%EF%BC%9A"><span class="toc-text">代码：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#F-Kobolds-and-Catacombs"><span class="toc-text">F. Kobolds and Catacombs</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#tag"><span class="toc-text">tag</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E6%84%8F"><span class="toc-text">题意</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF"><span class="toc-text">思路</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81"><span class="toc-text">代码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#G-The-Witchwood"><span class="toc-text">G. The Witchwood</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#tag-1"><span class="toc-text">tag</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E6%84%8F-1"><span class="toc-text">题意</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF-1"><span class="toc-text">思路</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81-1"><span class="toc-text">代码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#H-The-Boomsday-Project"><span class="toc-text">H. The Boomsday Project</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#tag-2"><span class="toc-text">tag</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E6%84%8F-2"><span class="toc-text">题意</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF-2"><span class="toc-text">思路</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81-2"><span class="toc-text">代码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#I-Rise-of-Shadows"><span class="toc-text">I. Rise of Shadows</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#tag-3"><span class="toc-text">tag</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E6%84%8F-3"><span class="toc-text">题意</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF-3"><span class="toc-text">思路</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81-3"><span class="toc-text">代码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#J-Descent-of-Dragons"><span class="toc-text">J. Descent of Dragons</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#tag-4"><span class="toc-text">tag</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E6%84%8F-4"><span class="toc-text">题意</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF-4"><span class="toc-text">思路</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81-4"><span class="toc-text">代码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#M-United-in-Stormwind"><span class="toc-text">M. United in Stormwind</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#tag-5"><span class="toc-text">tag</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E6%84%8F-5"><span class="toc-text">题意</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF-5"><span class="toc-text">思路</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81-5"><span class="toc-text">代码</span></a></li></ol></li></ol>
+<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#D-Journey-to-Un%E2%80%99Goro"><span class="toc-text">D. Journey to Un’Goro</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#tag%EF%BC%9A"><span class="toc-text">tag：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E6%84%8F%EF%BC%9A"><span class="toc-text">题意：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF%EF%BC%9A"><span class="toc-text">思路：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%EF%BC%9A"><span class="toc-text">代码：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#F-Kobolds-and-Catacombs"><span class="toc-text">F. Kobolds and Catacombs</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#tag"><span class="toc-text">tag</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E6%84%8F"><span class="toc-text">题意</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF"><span class="toc-text">思路</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81"><span class="toc-text">代码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#G-The-Witchwood"><span class="toc-text">G. The Witchwood</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#tag-1"><span class="toc-text">tag</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E6%84%8F-1"><span class="toc-text">题意</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF-1"><span class="toc-text">思路</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81-1"><span class="toc-text">代码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#H-The-Boomsday-Project"><span class="toc-text">H. The Boomsday Project</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#tag-2"><span class="toc-text">tag</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E6%84%8F-2"><span class="toc-text">题意</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF-2"><span class="toc-text">思路</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81-2"><span class="toc-text">代码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#I-Rise-of-Shadows"><span class="toc-text">I. Rise of Shadows</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#tag-3"><span class="toc-text">tag</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E6%84%8F-3"><span class="toc-text">题意</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF-3"><span class="toc-text">思路</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81-3"><span class="toc-text">代码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#J-Descent-of-Dragons"><span class="toc-text">J. Descent of Dragons</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#tag-4"><span class="toc-text">tag</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E6%84%8F-4"><span class="toc-text">题意</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF-4"><span class="toc-text">思路</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81-4"><span class="toc-text">代码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#K-Scholomance-Academy"><span class="toc-text">K. Scholomance Academy</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#tag-5"><span class="toc-text">tag</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E6%84%8F-5"><span class="toc-text">题意</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF-5"><span class="toc-text">思路</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81-5"><span class="toc-text">代码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#M-United-in-Stormwind"><span class="toc-text">M. United in Stormwind</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#tag-6"><span class="toc-text">tag</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E6%84%8F-6"><span class="toc-text">题意</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF-6"><span class="toc-text">思路</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81-6"><span class="toc-text">代码</span></a></li></ol></li></ol>
     </article>
   
   
@@ -904,6 +924,11 @@ ll k<span class="token punctuation">,</span>f<span class="token punctuation">[</
   <div class="recent-posts-list">
     
       <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2022-07-07</div>
+        <a href="/2022/07/07/2021shenyang/"><div class="recent-posts-item-content">2021shenyang</div></a>
+      </div>
+    
+      <div class="recent-posts-item">
         <div class="recent-posts-item-title">2022-07-03</div>
         <a href="/2022/07/03/2020shenyang/"><div class="recent-posts-item-content">2020 沈阳补题记录（8 / 13）</div></a>
       </div>
@@ -916,11 +941,6 @@ ll k<span class="token punctuation">,</span>f<span class="token punctuation">[</
       <div class="recent-posts-item">
         <div class="recent-posts-item-title">2022-07-02</div>
         <a href="/2022/07/02/P3898/"><div class="recent-posts-item-content">洛谷 P3898 [湖南集训]大新闻</div></a>
-      </div>
-    
-      <div class="recent-posts-item">
-        <div class="recent-posts-item-title">2022-06-30</div>
-        <a href="/2022/06/30/P7361/"><div class="recent-posts-item-content">题解 洛谷P7361 「JZOI-1」拜神</div></a>
       </div>
     
   </div>
