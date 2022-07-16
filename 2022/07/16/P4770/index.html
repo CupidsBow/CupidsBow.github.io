@@ -341,7 +341,7 @@
     
     
       <span class="dot"></span>
-      <span>1.8k 字</span>
+      <span>1.9k 字</span>
     
   </div>
   
@@ -390,7 +390,7 @@
 <span id="more"></span>
 
 <h3 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h3><p>给定小写字符串 $s$ ， $q$ 次询问，每次给出小写字符串 $t$ 与整数 $l, r$ ，求 $t$ 中本质不同的子串个数，满足该子串不出现在 $s[l, r]$ 中。<br>其中 $1 \leq |s| \leq 5 \cdot 10^5, 1 \leq q \leq 10^5, \sum|t| \leq 10^6$ 。</p>
-<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>对于单次询问，显然可以容斥一下转换成求 $t$ 与 $s[l, r]$ 的本质不同的公共子串个数，最后再用 $t$ 的本质不同的子串个数减去它。<br>对于后者，求出 $t$ 的后缀数组的同时也就求好了。对于前者，可以考虑对于 $t$ 的每一个后缀都求出它与 $s[l, r]$ 中子串匹配到的最长距离，最后再用类似后者的方法求出结果。<br>那么问题转换成了如何求 $t$ 的每一个后缀与 $s[l, r]$ 中子串匹配到的最长距离。不难想到类似<a href="https://cupidsbow.github.io/2022/06/28/P4094/">洛谷P4094 [HEOI2016/TJOI2016]字符串</a>中的方法，将 $s$ 与 $t$ 拼接在一起，二分出长度再判断，求解复杂度为 $O(log^2n)$ ，总复杂度为 $O(\sum(|t| \cdot log^2|t|))$ ，由于 $\sum|t| \leq 10^6$ ，显然不行，考虑继续优化。<br>可以发现该问题与 P4094 不同的地方在于——该题求的串是 $t$ 中的每一个后缀，也就是连续的若干个后缀，若我们考虑按 $t$ 中原本的顺序求解，若对于 $t$ 的第 $i$ 个后缀，它算出的匹配长度为 $len$ ，那么对于下一个后缀 $i + 1$ ，它能够匹配到的长度至少为 $\max(len - 1, 0)$ 。因此，我们考虑按顺序求出 $t$ 中每一个后缀的匹配长度，计算时维护当前的长度 $len$ ，从后缀 $i - 1$ 到 $i$ 时，逐次判断 $len$ 能否继续增长，单次判断的过程类似 P4094 ，复杂度为 $O(logn)$ ，维护 $len$ 的过程实际上是维护一个双指针，所以求出 $t$ 中每一个后缀匹配长度的总复杂度为 $O(|t| \cdot log|t|)$ ，那么对于所有询问，总复杂度即为 $O(\sum(|t| \cdot log|t|))$ 。<br>对于所有询问，将询问离线下来，把所有的串 $t$ 与 $s$ 拼接后求出后缀数组即可。</p>
+<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>对于单次询问，显然可以容斥一下转换成求 $t$ 与 $s[l, r]$ 的本质不同的公共子串个数，最后再用 $t$ 的本质不同的子串个数减去它。<br>对于后者，求出 $t$ 的后缀数组的同时也就求好了。对于前者，可以考虑对于 $t$ 的每一个后缀都求出它与 $s[l, r]$ 中子串匹配到的最长距离，最后再用类似后者的方法求出结果。<br>那么问题转换成了如何求 $t$ 的每一个后缀与 $s[l, r]$ 中子串匹配到的最长距离。不难想到类似<a href="https://cupidsbow.github.io/2022/06/28/P4094/">洛谷P4094 [HEOI2016/TJOI2016]字符串</a>中的方法，将 $s$ 与 $t$ 拼接在一起，二分出长度再判断，求解复杂度为 $O(log^2n)$ ，总复杂度为 $O(\sum(|t| \cdot log^2|t|))$ ，由于 $\sum|t| \leq 10^6$ ，显然不行，考虑继续优化。<br>可以发现该问题与 P4094 不同的地方在于——该题求的串是 $t$ 中的每一个后缀，也就是连续的若干个后缀，若我们考虑按 $t$ 中原本的顺序求解，若对于 $t$ 的第 $i$ 个后缀，它算出的匹配长度为 $len$ ，那么对于下一个后缀 $i + 1$ ，它能够匹配到的长度至少为 $\max(len - 1, 0)$ 。因此，我们考虑按顺序求出 $t$ 中每一个后缀的匹配长度，计算时维护当前的长度 $len$ ，从后缀 $i - 1$ 到 $i$ 时，逐次判断 $len$ 能否继续增长，单次判断的过程类似 P4094 ，复杂度为 $O(logn)$ ，由于维护 $len$ 的过程实际上是维护一个双指针，所以求出 $t$ 中每一个后缀匹配长度的总复杂度为 $O(|t| \cdot log|t|)$ ，那么对于所有询问，总复杂度即为 $O(\sum(|t| \cdot log|t|))$ 。<br>对于所有询问，将询问离线下来，把所有的串 $t$ 与 $s$ 拼接后求出后缀数组即可。</p>
 <h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span><span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
 
@@ -768,12 +768,6 @@ string s<span class="token punctuation">,</span>str<span class="token punctuatio
       </a>
     
       <a 
-        href="/tags/%E7%8A%B6%E5%8E%8BDP/" 
-        title="状压DP">
-        <div class="tags-list-item">状压DP</div>
-      </a>
-    
-      <a 
         href="/tags/%E6%A6%82%E7%8E%87DP/" 
         title="概率DP">
         <div class="tags-list-item">概率DP</div>
@@ -783,6 +777,12 @@ string s<span class="token punctuation">,</span>str<span class="token punctuatio
         href="/tags/%E6%95%B0%E4%BD%8DDP/" 
         title="数位DP">
         <div class="tags-list-item">数位DP</div>
+      </a>
+    
+      <a 
+        href="/tags/%E7%8A%B6%E5%8E%8BDP/" 
+        title="状压DP">
+        <div class="tags-list-item">状压DP</div>
       </a>
     
   </div>
