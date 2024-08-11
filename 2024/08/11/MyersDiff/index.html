@@ -20,28 +20,28 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"cupidsbow.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.15.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="在 WSL2 上配置 Rust 环境">
+    <meta name="description" content="MyersDiff 朴素版本的实现">
 <meta property="og:type" content="article">
-<meta property="og:title" content="WSL2 上 Rust 环境配置">
-<meta property="og:url" content="https://cupidsbow.github.io/2024/07/21/rust-vscode-on-wsl/index.html">
+<meta property="og:title" content="MyersDiff">
+<meta property="og:url" content="https://cupidsbow.github.io/2024/08/11/MyersDiff/index.html">
 <meta property="og:site_name" content="Cupids_Bow 的博客">
-<meta property="og:description" content="在 WSL2 上配置 Rust 环境">
+<meta property="og:description" content="MyersDiff 朴素版本的实现">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2024-07-21T09:33:25.000Z">
-<meta property="article:modified_time" content="2024-07-26T11:28:19.945Z">
+<meta property="article:published_time" content="2024-08-11T15:51:57.000Z">
+<meta property="article:modified_time" content="2024-08-11T16:21:20.926Z">
 <meta property="article:author" content="Cupids_Bow">
-<meta property="article:tag" content="环境">
+<meta property="article:tag" content="dp">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="https://cupidsbow.github.io/2024/07/21/rust-vscode-on-wsl/">
+<link rel="canonical" href="https://cupidsbow.github.io/2024/08/11/MyersDiff/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://cupidsbow.github.io/2024/07/21/rust-vscode-on-wsl/","path":"2024/07/21/rust-vscode-on-wsl/","title":"WSL2 上 Rust 环境配置"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://cupidsbow.github.io/2024/08/11/MyersDiff/","path":"2024/08/11/MyersDiff/","title":"MyersDiff"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>WSL2 上 Rust 环境配置 | Cupids_Bow 的博客</title>
+<title>MyersDiff | Cupids_Bow 的博客</title>
   
 
 
@@ -127,7 +127,7 @@
   
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+    <div class="sidebar-inner sidebar-overview-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           文章目录
@@ -140,7 +140,6 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85-rust-%E5%B7%A5%E5%85%B7%E9%93%BE"><span class="nav-number">1.</span> <span class="nav-text"> 安装 Rust 工具链</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A3%80%E6%9F%A5%E5%AE%89%E8%A3%85%E6%98%AF%E5%90%A6%E6%88%90%E5%8A%9F"><span class="nav-number">2.</span> <span class="nav-text"> 检查安装是否成功</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#vscode-%E6%8F%92%E4%BB%B6%E6%8E%A8%E8%8D%90"><span class="nav-number">3.</span> <span class="nav-text"> VSCode 插件推荐</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9B%B4%E6%96%B0-%E5%8D%B8%E8%BD%BD-rust"><span class="nav-number">4.</span> <span class="nav-text"> 更新 &#x2F; 卸载 Rust</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9%E4%B8%8B%E8%BD%BD%E9%95%9C%E5%83%8F%E4%B8%BA%E5%9B%BD%E5%86%85%E7%9A%84%E9%95%9C%E5%83%8F%E5%9C%B0%E5%9D%80"><span class="nav-number">5.</span> <span class="nav-text"> 修改下载镜像为国内的镜像地址</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#rust-analyzer-%E6%A0%BC%E5%BC%8F%E5%8C%96%E9%85%8D%E7%BD%AE"><span class="nav-number">6.</span> <span class="nav-text"> Rust-Analyzer 格式化配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E4%BA%9B-rust-%E8%B5%84%E6%96%99"><span class="nav-number">7.</span> <span class="nav-text"> 一些 Rust 资料</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -217,7 +216,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://cupidsbow.github.io/2024/07/21/rust-vscode-on-wsl/">
+    <link itemprop="mainEntityOfPage" href="https://cupidsbow.github.io/2024/08/11/MyersDiff/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -230,12 +229,12 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="WSL2 上 Rust 环境配置 | Cupids_Bow 的博客">
+      <meta itemprop="name" content="MyersDiff | Cupids_Bow 的博客">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          WSL2 上 Rust 环境配置
+          MyersDiff
         </h1>
 
         <div class="post-meta-container">
@@ -246,14 +245,14 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2024-07-21 17:33:25" itemprop="dateCreated datePublished" datetime="2024-07-21T17:33:25+08:00">2024-07-21</time>
+      <time title="创建时间：2024-08-11 23:51:57" itemprop="dateCreated datePublished" datetime="2024-08-11T23:51:57+08:00">2024-08-11</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2024-07-26 19:28:19" itemprop="dateModified" datetime="2024-07-26T19:28:19+08:00">2024-07-26</time>
+      <time title="修改时间：2024-08-12 00:21:20" itemprop="dateModified" datetime="2024-08-12T00:21:20+08:00">2024-08-12</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -261,7 +260,7 @@
       </span>
       <span class="post-meta-item-text">分类于</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E7%8E%AF%E5%A2%83/" itemprop="url" rel="index"><span itemprop="name">环境</span></a>
+          <a href="/categories/rust/" itemprop="url" rel="index"><span itemprop="name">rust</span></a>
         </span>
     </span>
 
@@ -272,7 +271,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>917</span>
+      <span>220</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -290,46 +289,13 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <p>在 WSL2 上配置 Rust 环境</p>
+        <p>MyersDiff 朴素版本的实现</p>
 <span id="more"></span>
 <hr />
-<h2 id="安装-rust-工具链"><a class="markdownIt-Anchor" href="#安装-rust-工具链"></a> 安装 Rust 工具链</h2>
-<p>在终端直接运行以下命令：</p>
-<blockquote>
-<p>curl --proto ‘=https’ --tlsv1.2 <a target="_blank" rel="noopener" href="https://sh.rustup.rs">https://sh.rustup.rs</a> -sSf | sh</p>
-</blockquote>
-<h2 id="检查安装是否成功"><a class="markdownIt-Anchor" href="#检查安装是否成功"></a> 检查安装是否成功</h2>
-<blockquote>
-<p>$ rustc -V<br />
-rustc 1.79.0 (129f3b996 2024-06-10)</p>
-<p>$ cargo -V<br />
-cargo 1.79.0 (ffa9cf99a 2024-06-03)</p>
-</blockquote>
-<p><code>WSL</code> 环境下如果没有此信息，请关闭并重新打开终端，再次执行以上命令。<br />
-<code>Cargo</code> 是 <code>Rust</code> 的项目管理工具。</p>
-<h2 id="vscode-插件推荐"><a class="markdownIt-Anchor" href="#vscode-插件推荐"></a> VSCode 插件推荐</h2>
-<ul>
-<li><code>Rust-Analyzer</code></li>
-<li><code>CodeLLDB</code></li>
-<li><code>Error Lens</code>（更直观的错误提示）</li>
-<li><code>Even Better TOML</code>（支持 <code>.toml</code> 文件完整特性）</li>
-<li><code>Project Manager</code>（收藏、识别和管理你的工作空间和项目文件夹）</li>
-</ul>
-<h2 id="更新-卸载-rust"><a class="markdownIt-Anchor" href="#更新-卸载-rust"></a> 更新 / 卸载 Rust</h2>
-<blockquote>
-<p>$ rustup update</p>
-</blockquote>
-<blockquote>
-<p>$ rustup self uninstall</p>
-</blockquote>
-<h2 id="修改下载镜像为国内的镜像地址"><a class="markdownIt-Anchor" href="#修改下载镜像为国内的镜像地址"></a> 修改下载镜像为国内的镜像地址</h2>
-<p>在 <code>$HOME/.cargo/config.toml</code> （如果文件不存在则手动创建一个）中添加以下内容：</p>
-<figure class="highlight toml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[registries]</span></span><br><span class="line"><span class="attr">ustc</span> = &#123; index = <span class="string">&quot;https://mirrors.ustc.edu.cn/crates.io-index/&quot;</span> &#125;</span><br><span class="line"></span><br><span class="line"><span class="section">[source.ustc]</span></span><br><span class="line"><span class="attr">registry</span> = <span class="string">&quot;sparse+https://mirrors.ustc.edu.cn/crates.io-index/&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="section">[source.crates-io]</span></span><br><span class="line"><span class="attr">replace-with</span> = <span class="string">&#x27;ustc&#x27;</span></span><br></pre></td></tr></table></figure>
-<h2 id="rust-analyzer-格式化配置"><a class="markdownIt-Anchor" href="#rust-analyzer-格式化配置"></a> Rust-Analyzer 格式化配置</h2>
-<p><code>setting.json</code> 添加配置如下。</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">&quot;[rust]&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;editor.formatOnSave&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span></span><br><span class="line"><span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line"><span class="attr">&quot;rust-analyzer.rustfmt.extraArgs&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">  <span class="string">&quot;--config&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="string">&quot;hard_tabs=false,tab_spaces=2&quot;</span><span class="punctuation">,</span></span><br><span class="line"><span class="punctuation">]</span><span class="punctuation">,</span></span><br></pre></td></tr></table></figure>
-<h2 id="一些-rust-资料"><a class="markdownIt-Anchor" href="#一些-rust-资料"></a> 一些 Rust 资料</h2>
-<p><a target="_blank" rel="noopener" href="https://course.rs/about-book.html">Rust圣经</a></p>
+<p>在看一些古早的东西。<br />
+Myers 相关的论文 <a target="_blank" rel="noopener" href="http://xmailserver.org/diff2.pdf">Myers</a> 。<br />
+实现其实是一个 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mi>P</mi></mrow><annotation encoding="application/x-tex">DP</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">D</span><span class="mord mathnormal" style="margin-right:0.13889em;">P</span></span></span></span> ，通过寻找 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi><mi>C</mi><mi>S</mi></mrow><annotation encoding="application/x-tex">LCS</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal">L</span><span class="mord mathnormal" style="margin-right:0.07153em;">C</span><span class="mord mathnormal" style="margin-right:0.05764em;">S</span></span></span></span> 的方式来比较文本差异，时间复杂度为 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mo stretchy="false">(</mo><mi>N</mi><mo>+</mo><mi>M</mi><mo stretchy="false">)</mo><mo>⋅</mo><mi>D</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O((N + M) \cdot D)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">M</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">D</span><span class="mclose">)</span></span></span></span> ， <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi></mrow><annotation encoding="application/x-tex">D</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">D</span></span></span></span> 为文本间的最大编辑距离，在实际应用中 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi></mrow><annotation encoding="application/x-tex">D</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">D</span></span></span></span> 一般较小，故 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mi>y</mi><mi>e</mi><mi>r</mi><mi>s</mi></mrow><annotation encoding="application/x-tex">Myers</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8777699999999999em;vertical-align:-0.19444em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">M</span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mord mathnormal">e</span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mord mathnormal">s</span></span></span></span> 在实际应用中效率较高。</p>
+<p>仓库地址：<a target="_blank" rel="noopener" href="https://github.com/CupidsBow/DiffMerge">https://github.com/CupidsBow/DiffMerge</a></p>
 <link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
     </div>
 
@@ -347,7 +313,7 @@ cargo 1.79.0 (ffa9cf99a 2024-06-03)</p>
   </li>
   <li class="post-copyright-link">
       <strong>本文链接：</strong>
-      <a href="https://cupidsbow.github.io/2024/07/21/rust-vscode-on-wsl/" title="WSL2 上 Rust 环境配置">https://cupidsbow.github.io/2024/07/21/rust-vscode-on-wsl/</a>
+      <a href="https://cupidsbow.github.io/2024/08/11/MyersDiff/" title="MyersDiff">https://cupidsbow.github.io/2024/08/11/MyersDiff/</a>
   </li>
   <li class="post-copyright-license">
       <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -356,21 +322,18 @@ cargo 1.79.0 (ffa9cf99a 2024-06-03)</p>
 </div>
 
           <div class="post-tags">
-              <a href="/tags/%E7%8E%AF%E5%A2%83/" rel="tag"># 环境</a>
+              <a href="/tags/dp/" rel="tag"># dp</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2023/04/23/LLRB-Tree/" rel="prev" title="左偏红黑树">
-                  <i class="fa fa-chevron-left"></i> 左偏红黑树
+                <a href="/2024/07/21/rust-vscode-on-wsl/" rel="prev" title="WSL2 上 Rust 环境配置">
+                  <i class="fa fa-chevron-left"></i> WSL2 上 Rust 环境配置
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2024/08/11/MyersDiff/" rel="next" title="MyersDiff">
-                  MyersDiff <i class="fa fa-chevron-right"></i>
-                </a>
             </div>
           </div>
     </footer>
